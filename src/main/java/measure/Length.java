@@ -24,7 +24,7 @@ public class Length {
 	public Length() {};
    
 	public Length(double value,LengthUnit len) throws InvalidUnitMeasurementException {
-		if(Double.isNaN(value)) {
+		if(Double.isNaN(value) || Double.isInfinite(value)) {
 			throw new IllegalArgumentException("Invalid Input");
 		}
 		if(len==null) {
@@ -73,10 +73,29 @@ public class Length {
 		return new Length(converted,unit);
 	}
 	
+	private double convertBaseToTargetUnit(double lengthInInches,LengthUnit targetUnit) {
+		return (lengthInInches*len.getConversionFactor())/targetUnit.getConversionFactor();
+	}
+	
 	public Length add(Length thatLength) throws InvalidUnitMeasurementException {
+		if(thatLength==null)  throw new IllegalArgumentException("Object is null");
+		 
 		 thatLength = thatLength.convertTo(len);
 		 return new Length(value+thatLength.value, len);
 	}
+	
+	private Length addAndConvert(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
+		 if(length==null||targetUnit==null) {
+			 throw new IllegalArgumentException("Invalid input");
+		 }
+		double temp1 = length.convertBaseToTargetUnit(length.getValue(), targetUnit);
+		double temp2 = convertBaseToTargetUnit(this.getValue(), targetUnit);
+		 return new Length(temp1+temp2,targetUnit);
+	 }
+	 
+	 public Length add(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
+		 return addAndConvert(length, targetUnit);
+	 }
      
 	public static void main(String[] args) throws InvalidUnitMeasurementException {
 		Length len1 = new Length(1,Length.LengthUnit.FEET);
