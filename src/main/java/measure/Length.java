@@ -33,6 +33,10 @@ public class Length {
 		this.value = value;
 		this.len = len;
 	}
+	
+	 public double getValue() {
+    	 return value;
+     }
      
 	private double convertToBaseUnit() {
 		return value*len.getConversionFactor();
@@ -54,6 +58,16 @@ public class Length {
         Length l = (Length)obj;
         return this.compare(l);
     }
+	
+	@Override
+	public String toString() {
+		return "Length [value=" + value + ", len=" + len + "]";
+	}
+
+	public Length convertTo(LengthUnit unit) throws InvalidUnitMeasurementException {
+		double converted = (this.value*len.getConversionFactor())/unit.getConversionFactor();
+		return new Length(converted,unit);
+	}
      
 	public static void main(String[] args) throws InvalidUnitMeasurementException {
 		Length len1 = new Length(1,Length.LengthUnit.FEET);
