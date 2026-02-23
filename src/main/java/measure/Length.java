@@ -4,56 +4,37 @@ public class Length {
 	private static final double EPSILON = 0.0001;
 	private double value;
 	private LengthUnit len;
-	public enum LengthUnit{
-		FEET(12.0),
-		INCHES(1.0),
-		YARD(36.0),
-		CENTIMETRE(0.393701);
-    	 
-		private final double conversion;
-    	 
-		LengthUnit(double conversion) {
-			this.conversion = conversion;
-		}
-    	
-    	public double getConversionFactor() {
-    		return conversion;
-    	}
-     }
-	
-	public Length() {};
+    
+     public Length() {};
    
-	public Length(double value,LengthUnit len) throws InvalidUnitMeasurementException {
-		if(Double.isNaN(value) || Double.isInfinite(value)) {
-			throw new IllegalArgumentException("Invalid Input");
-		}
-		if(len==null) {
-			throw new InvalidUnitMeasurementException("Unit is null");
-		}
-		this.value = value;
-		this.len = len;
-	}
-	
-	 public double getValue() {
+     public Length(double value,LengthUnit len) throws InvalidUnitMeasurementException {
+    	 if(Double.isNaN(value)||Double.isInfinite(value)) {
+    		 throw new IllegalArgumentException("Invalid Input");
+    	 }
+    	 if(len==null) {
+    		 throw new InvalidUnitMeasurementException("Unit is null");
+    	 }
+    	 this.value = value;
+    	 this.len = len;
+     }
+     
+     public double getValue() {
     	 return value;
      }
-	 
-	 public LengthUnit getLen() {
+     public LengthUnit getLen() {
     	 return len;
      }
+//     To convert value to their base unit  
      
-	private double convertToBaseUnit() {
-		return value*len.getConversionFactor();
-	}
-    
-	public boolean compare(Length lengthUnit) {
-		if(lengthUnit==null)return false;
-		return Math.abs(this.convertToBaseUnit() - lengthUnit.convertToBaseUnit()) < EPSILON;
+     public boolean compare(Length lengthUnit) {
+    	 if(lengthUnit==null)return false;
+    	  return Math.abs(this.len.convertToBaseUnit(value) - lengthUnit.len.convertToBaseUnit(lengthUnit.getValue())) < EPSILON;
 	}
      
-	@Override
+//     overrided .equals methods to check if two units are equal or not 
+     @Override
     public boolean equals(Object obj) {
-		if(this==obj) {
+        if(this==obj) {
         	return true;
         }
         if(obj==null||this.getClass()!=obj.getClass()) {
@@ -62,29 +43,30 @@ public class Length {
         Length l = (Length)obj;
         return this.compare(l);
     }
-	
-	@Override
+     
+     //override tostring method 
+     @Override
 	public String toString() {
 		return "Length [value=" + value + ", len=" + len + "]";
 	}
-
-	public Length convertTo(LengthUnit unit) throws InvalidUnitMeasurementException {
-		double converted = (this.value*len.getConversionFactor())/unit.getConversionFactor();
-		return new Length(converted,unit);
-	}
-	
-	private double convertBaseToTargetUnit(double lengthInInches,LengthUnit targetUnit) {
-		return (lengthInInches*len.getConversionFactor())/targetUnit.getConversionFactor();
-	}
-	
-	public Length add(Length thatLength) throws InvalidUnitMeasurementException {
-		if(thatLength==null)  throw new IllegalArgumentException("Object is null");
+     
+    //Conversion of unit to current unit 
+	 public Length convertTo(LengthUnit unit) throws InvalidUnitMeasurementException {
+    	 double converted = (len.convertToBaseUnit(value))/unit.getConversionFactor();
+    	 return new Length(converted,unit);
+     }
+	 private double convertBaseToTargetUnit(double lengthInInches,LengthUnit targetUnit) {
+		 return (lengthInInches*len.getConversionFactor())/targetUnit.getConversionFactor();
+	 }
+	 
+	 //Add To length and convert Unit to current unit
+	 public Length add(Length thatLength) throws InvalidUnitMeasurementException {
+		 if(thatLength==null)  throw new IllegalArgumentException("Object is null");
 		 
 		 thatLength = thatLength.convertTo(len);
 		 return new Length(value+thatLength.value, len);
-	}
-	
-	private Length addAndConvert(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
+	 }
+	 private Length addAndConvert(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
 		 if(length==null||targetUnit==null) {
 			 throw new IllegalArgumentException("Invalid input");
 		 }
@@ -96,10 +78,11 @@ public class Length {
 	 public Length add(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
 		 return addAndConvert(length, targetUnit);
 	 }
-     
-	public static void main(String[] args) throws InvalidUnitMeasurementException {
-		Length len1 = new Length(1,Length.LengthUnit.FEET);
-		Length len2 = new Length(12,Length.LengthUnit.INCHES);
+	 
+	 //Main Method to invoke the methods locally 
+     public static void main(String[] args) throws InvalidUnitMeasurementException {
+		Length len1 = new Length(1,LengthUnit.FEET);
+		Length len2 = new Length(12,LengthUnit.INCHES);
 		
 		System.out.println("Are Length equals? :"+len1.equals(len2));
 	    
