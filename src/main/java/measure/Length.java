@@ -37,6 +37,10 @@ public class Length {
 	 public double getValue() {
     	 return value;
      }
+	 
+	 public LengthUnit getLen() {
+    	 return len;
+     }
      
 	private double convertToBaseUnit() {
 		return value*len.getConversionFactor();
@@ -67,6 +71,11 @@ public class Length {
 	public Length convertTo(LengthUnit unit) throws InvalidUnitMeasurementException {
 		double converted = (this.value*len.getConversionFactor())/unit.getConversionFactor();
 		return new Length(converted,unit);
+	}
+	
+	public Length add(Length thatLength) throws InvalidUnitMeasurementException {
+		 thatLength = thatLength.convertTo(len);
+		 return new Length(value+thatLength.value, len);
 	}
      
 	public static void main(String[] args) throws InvalidUnitMeasurementException {
