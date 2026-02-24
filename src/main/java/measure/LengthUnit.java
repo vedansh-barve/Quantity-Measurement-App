@@ -15,8 +15,10 @@ public enum LengthUnit {
 	public double getConversionFactor() {
 		return conversion;
 	}
-	
 	public double convertToBaseUnit(double value) {
    	 return value*this.getConversionFactor();
+    }
+    public double convertFromBaseUnit(double value) {
+    	return (LengthUnit.FEET.getConversionFactor()*value)/this.getConversionFactor();
     }
 }
