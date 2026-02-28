@@ -40,5 +40,22 @@ public class QuantityMeasurementApp {
 	    System.out.println("Convert Kg To Gram : "+demonstrateConversion(w1,WeightUnit.GRAM));
 	    System.out.println("Addition of Kg and Gram : "+demonstrateAddition(w1, w2,WeightUnit.KG));
 	    
-	}
-}
+	    
+//	    Volume unit
+	    System.out.println("Is Litre equal litre: " + demonstrateEquality(new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE), new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE)));
+	    
+	    System.out.println("Is Litre equal millitre: " + demonstrateEquality(new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE), new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLITRE)));
+	    
+	    System.out.println("Addition of Gallon with Gallon: " + demonstrateAddition(new Quantity<VolumeUnit>(1.0, VolumeUnit.GALLON), new Quantity<VolumeUnit>(1.0, VolumeUnit.GALLON)));
+
+	    System.out.println("Is Millitre equal litre: " + demonstrateEquality(new Quantity<VolumeUnit>(500.0, VolumeUnit.MILLITRE), new Quantity<VolumeUnit>(0.5, VolumeUnit.LITRE)));
+	    
+	    System.out.println("Is Litre equal gallon: " + demonstrateEquality(new Quantity<VolumeUnit>(3.78541, VolumeUnit.LITRE), new Quantity<VolumeUnit>(1.0, VolumeUnit.GALLON)));
+	    
+	    System.out.println("Addition of Litre with litre: " + demonstrateAddition(new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE), new Quantity<VolumeUnit>(2.0, VolumeUnit.LITRE)));
+	    
+	    System.out.println("Addition of Litre with Millitre: " + demonstrateAddition(new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE), new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLITRE)));
+	    
+	    
+    }
+}	

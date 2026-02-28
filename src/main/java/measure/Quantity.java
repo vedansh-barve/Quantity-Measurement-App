@@ -65,8 +65,7 @@ public class Quantity<T extends IMeasurable> {
    	 return new Quantity<>(temp2+temp1, unit);
     }
     public Quantity<T> add(Quantity<T> val1,T unit){
-   	 
-   	 return this.addAndConvert(val1, unit);
+    	return this.addAndConvert(val1, unit);
     }
 
 	 @Override
