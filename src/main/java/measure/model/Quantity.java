@@ -1,5 +1,8 @@
-package measure;
+package measure.model;
+
 import java.util.function.DoubleBinaryOperator;
+
+import measure.unit.IMeasurable;
 
 public class Quantity<T extends IMeasurable> {
 	private double value;
@@ -53,36 +56,42 @@ public class Quantity<T extends IMeasurable> {
 	 }
     
     public Quantity<T> add(Quantity<T> val){
+   	 val.getUnit().validateOperationSupport("add");
    	 this.validateArithmeticOperands(val, null, false);
    	 return new Quantity<>(performBaseArithmetic(val, ArithemeticOperations.ADD), this.unit);
     }
     
     private Quantity<T> addAndConvert(Quantity<T> val1, T unit){
+   	 unit.validateOperationSupport("add");
    	this.validateArithmeticOperands(val1,unit, true);
    	 
    	 return new Quantity<>(performBaseArithmetic(val1, ArithemeticOperations.ADD),this.getUnit());
     }
-    public Quantity<T> add(Quantity<T> val1,T unit){
-   	 
+    public Quantity<T> add(Quantity<T> val1,T unit) {
+   	 unit.validateOperationSupport("add");
    	 return this.addAndConvert(val1, unit).convertTo(unit);
     }
     
    public Quantity<T> subtract(Quantity<T> val){
+   	val.getUnit().validateOperationSupport("subtract");
        this.validateArithmeticOperands(val,null, false);
    	return new Quantity<>(performBaseArithmetic(val,ArithemeticOperations.SUBTRACT),this.getUnit());
    }
    
-   public Quantity<T> division(Quantity<T>val){
+   public Quantity<T> division(Quantity<T>val) {
+   	val.getUnit().validateOperationSupport("division");
    	this.validateArithmeticOperands(val, null, false);
    	return new Quantity<>(performBaseArithmetic(val, ArithemeticOperations.DIVIDE),this.getUnit());
    }
     
-   public Quantity<T> division(Quantity<T> val,T target){
+   public Quantity<T> division(Quantity<T> val,T target) {
+   	target.validateOperationSupport("division");
    	this.validateArithmeticOperands(val, target, true);
    	val = division(val).convertTo(target);
    	return val;
    }
-   public Quantity<T> subtract(Quantity<T> val,T target){
+   public Quantity<T> subtract(Quantity<T> val,T target) {
+   	target.validateOperationSupport("subtract");
    	this.validateArithmeticOperands(val, target,true);
    	val = subtract(val).convertTo(target);
    	return val;
@@ -106,14 +115,7 @@ public class Quantity<T extends IMeasurable> {
    	return result;
    }
 
-   public Quantity<T> performArithmetic(Quantity<T> other, ArithemeticOperations op) {
-       // Step 5: Fail-fast validation
-       this.unit.validateOperationSupport(op.name());
-       
-       double resultBase = op.compute(this.unit.convertToBaseUnit(this.value), 
-                                    other.unit.convertToBaseUnit(other.value));
-       return new Quantity<>(this.unit.convertFromBaseUnit(resultBase), this.unit);
-   }
+
 	 @Override
 	 public String toString() {
 		return "Quantity [value=" + value + ", unit=" + unit + "]";
@@ -134,6 +136,7 @@ public class Quantity<T extends IMeasurable> {
 	 }
 
 	 public double compute(double a, double b) {
-	 return operation.applyAsDouble(a, b);}
-}
+		 return operation.applyAsDouble(a, b);
+	 }
+    }
 }
