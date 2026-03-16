@@ -2,9 +2,15 @@ package measure.model;
 
 import java.util.Objects;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 import measure.entity.QuantityDTO;
 import measure.unit.IMeasurable;
 
+@Getter
+@Setter
 public class QuantityMeasurementEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	public double thisValue;
@@ -29,6 +35,10 @@ public class QuantityMeasurementEntity implements java.io.Serializable {
 	// For capturing any error messages during operations
 	public String errorMessage;
 	
+	public QuantityMeasurementEntity() {
+		super();
+	}
+	
 	public QuantityMeasurementEntity(QuantityDTO thisQuantity,QuantityDTO  thatQuantity,String operation, String result) {
             this(thisQuantity, thatQuantity, operation);
 			this.resultString = result;
@@ -38,13 +48,15 @@ public class QuantityMeasurementEntity implements java.io.Serializable {
 			this(thisQuantity, thatQuantity, operation);
 			this. resultValue = result.getValue();
 			this.resultUnit = result.getUnit();
-			this. resultMeasurementType = result.getMeasurementType();}
+			this. resultMeasurementType = result.getMeasurementType();
+	}
 	
 	public QuantityMeasurementEntity(QuantityDTO  thisQuantity,QuantityDTO  thatQuantity,String operation, String errorMessage, boolean isError) {
 			this(thisQuantity, thatQuantity, operation);
 			this.errorMessage = errorMessage;
 			this.isError = isError;
 	}
+	
 	public QuantityMeasurementEntity(QuantityDTO  thisQuantity,QuantityDTO  thatQuantity, String operation) {
 		this.thisValue = thisQuantity.getValue();
 		this.thisUnit =  thisQuantity.getUnit().toString();
@@ -52,6 +64,7 @@ public class QuantityMeasurementEntity implements java.io.Serializable {
 		this.thatUnit = thatQuantity.getUnit().toString();
 		this.operation = operation;
 	}
+	
 	@Override
     public boolean equals(Object obj) {
 
