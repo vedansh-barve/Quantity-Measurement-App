@@ -1,4 +1,4 @@
-package com.app.quantity_measurement_app.model;
+package com.app.quantity_measurement_app.quantity;
 
 import java.util.function.DoubleBinaryOperator;
 

@@ -9,13 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.app.quantity_measurement_app.model.QuantityMeasurementEntity;
+import com.app.quantity_measurement_app.entity.QuantityMeasurementEntity;
 
 @Repository  // marks this class as a Spring data repository
 public interface QuantityMeasurementRepository extends JpaRepository<QuantityMeasurementEntity, Long> {
 	
 	// method will automatically generate a query to find all QuantityMeasurementEntity records
-	List<QuantityMeasurementEntity> findByOperation(String operation);
+	List<QuantityMeasurementEntity> findByOperation(String operation);	
 	
 	// method will generate a query to find all records where the thisMeasurementType field matches the provided value
 	List<QuantityMeasurementEntity> findByThisMeasurementType(String measurementType);

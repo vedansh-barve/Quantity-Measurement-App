@@ -1,17 +1,17 @@
 package com.app.quantity_measurement_app.service;
 
 import com.app.quantity_measurement_app.dto.QuantityDTO;
-import com.app.quantity_measurement_app.model.QuantityMeasurementEntity;
 
 import org.springframework.stereotype.Service;
 
 import com.app.quantity_measurement_app.dto.QuantityMeasurementDTO;
-import com.app.quantity_measurement_app.model.QuantityModel;
+import com.app.quantity_measurement_app.dto.QuantityModel;
+import com.app.quantity_measurement_app.entity.QuantityMeasurementEntity;
+import com.app.quantity_measurement_app.quantity.Quantity;
 import com.app.quantity_measurement_app.exception.CategoryMismatchException;
 import com.app.quantity_measurement_app.exception.InvalidUnitException;
 import com.app.quantity_measurement_app.exception.InvalidUnitMeasurementException;
 import com.app.quantity_measurement_app.exception.QuantityMeasurementException;
-import com.app.quantity_measurement_app.model.Quantity;
 import com.app.quantity_measurement_app.repository.QuantityMeasurementRepository;
 import com.app.quantity_measurement_app.unit.IMeasurable;
 import com.app.quantity_measurement_app.unit.LengthUnit;
