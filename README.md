@@ -207,3 +207,374 @@ main
 - [feature/UC10-GenericQuantity](https://github.com/vedansh-barve/Quantity-Measurement-App/tree/feature/UC10-GenericQuantity/src)
 
 ---
+
+
+## 📅 22 Feb 2026  
+### 🔹 UC11 – Volume Measurement Equality, Conversion & Addition  
+**Branch:**  `feature/UC11-VolumeMeasurement`
+
+### 🎯 Objective
+- Introduce Volume measurement category  
+- Support Litre, Millilitre, Gallon  
+- Enable equality, conversion, and addition  
+
+### ✅ Implementation
+- Created `VolumeUnit` enum  
+- Implemented base unit strategy (Millilitre as base)  
+- Enabled cross-unit comparison (1000 ml = 1 Litre)  
+- Added addition support within category  
+- Prevented cross-category arithmetic  
+
+### 🏗 Result
+System now supports:
+- Length
+- Weight
+- Volume  
+- [feature/UC11-VolumeMeasurement](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC11-VolumeMeasurement)
+
+---
+
+## 📅 23 Feb 2026  
+### 🔹 UC12 – Subtraction & Division Operations  
+**Branch:**  `feature/UC12-ArithmeticOperations`
+
+### 🎯 Objective
+- Extend arithmetic support  
+- Enable subtraction between quantities  
+- Support division operations  
+
+### ✅ Implementation
+- Added `subtract()` method  
+- Added `divide()` method  
+- Ensured same-category enforcement  
+- Maintained base unit conversion logic  
+- Precision-safe arithmetic  
+
+### ⚙ Design Principle
+All arithmetic operations follow:
+1. Convert to base unit  
+2. Perform operation  
+3. Convert to target unit  
+- [feature/UC12-ArithmeticOperations](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC12-ArithmeticOperations)
+
+---
+
+## 📅 23 Feb 2026  
+### 🔹 UC13 – Centralized Arithmetic Logic (DRY Enforcement)  
+**Branch:**  `feature/UC13-CentralizedArithmetic`
+
+### 🎯 Objective
+- Remove duplication across add, subtract, divide  
+- Centralize arithmetic handling  
+
+### ✅ Implementation
+- Introduced common internal arithmetic handler  
+- Removed repeated conversion code  
+- Improved maintainability  
+- Reduced logic duplication  
+- Strengthened DRY compliance  
+
+### 🧠 Engineering Impact
+- Cleaner architecture  
+- Easier future feature additions  
+- Reduced error-prone code blocks  
+- [feature/UC13-CentralizedArithmetic](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC13-CentralizedArithmetic)
+
+---
+
+## 📅 24 Feb 2026  
+### 🔹 UC14 – Temperature Measurement with Selective Arithmetic Support & Measurable Refactoring  
+**Branch:**  `feature/UC14-TemperatureMeasurement`
+
+### 🎯 Objective
+- Add Temperature measurement category  
+- Support Celsius & Fahrenheit  
+- Restrict invalid arithmetic operations  
+- Refactor measurable behavior  
+
+### ⚠ Special Challenge
+Temperature is **not purely linear like length or weight**  
+Conversion requires formula-based transformation:
+- °F = (°C × 9/5) + 32  
+
+### ✅ Implementation
+- Created `TemperatureUnit` enum  
+- Implemented formula-based conversion logic  
+- Allowed equality comparison  
+- Restricted unsupported arithmetic (e.g., adding two temperatures directly)  
+- Applied measurable abstraction refactoring  
+
+### 🧠 Architectural Enhancement
+- Introduced selective arithmetic capability  
+- Improved domain modeling  
+- Applied behavior-driven restrictions  
+- [feature/UC14-TemperatureMeasurement](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC14-TemperatureMeasurement)
+
+---
+
+# 🏗 UC15 – N-Tier Architecture Refactoring
+📅 **09 March 2026**  
+🔖 **Branch:** `feature/UC15-N-TierArchitecture`
+
+## 🎯 Objective
+Refactor the application into a **clean N-Tier Architecture** to improve:
+
+- Maintainability
+- Scalability
+- Testability
+- Separation of concerns
+
+---
+
+## 🏗 System Architecture
+
+```
+Presentation Layer
+       │
+       ▼
+Controller Layer
+       │
+       ▼
+Service Layer
+       │
+       ▼
+Repository Layer
+       │
+       ▼
+Database / Persistence
+```
+
+---
+
+## 📦 Project Layer Structure
+
+| Layer | Responsibility |
+|------|----------------|
+| **Controller** | Handles API requests and responses |
+| **Service** | Business logic and validation |
+| **DTO** | Data transfer between layers |
+| **Entity / Model** | Core domain representation |
+| **Repository** | Data persistence abstraction |
+
+---
+
+## 🧠 Concepts Implemented
+
+- N-Tier Architecture Principles
+- Data Transfer Objects (DTO)
+- Service Oriented Design
+- Dependency Injection Pattern
+- Error Handling as Data
+- Immutable Data Objects
+- Layered System Design
+
+---
+
+## ⚙ SOLID Principles Applied
+
+| Principle | Application |
+|----------|-------------|
+| **SRP** | Each layer has a single responsibility |
+| **OCP** | Easily extendable measurement units |
+| **LSP** | Unit implementations interchangeable |
+| **ISP** | Small measurable interfaces |
+| **DIP** | High level modules depend on abstractions |
+
+---
+
+## ✅ Implementation Highlights
+
+- Introduced **DTO layer for API communication**
+- Implemented **Service layer for business logic**
+- Created **Repository abstraction**
+- Applied **Dependency Injection**
+- Improved **testability and modularity**
+
+🔗 Repository  
+- [feature/UC15-N-TierArchitecture](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC15-N-TierArchitecture)
+
+---
+
+# 🗄 UC16 – JDBC Database Integration
+📅 **11 March 2026**  
+🔖 **Branch:** `feature/UC16-DatabaseIntegration`
+
+## 🎯 Objective
+Enable **persistent storage of measurement data** using **JDBC and relational database design**.
+
+---
+
+## 🧠 Technologies Used
+
+- Java JDBC
+- Maven Dependency Management
+- SQL Database
+- Connection Pooling
+- Prepared Statements
+
+---
+
+## 🗄 Database Schema
+
+```
+users
+ ├── id
+ ├── name
+ ├── email
+
+measurements
+ ├── id
+ ├── value
+ ├── unit
+ ├── category
+
+measurement_units
+ ├── id
+ ├── unit_name
+ ├── conversion_factor
+```
+
+---
+
+## ⚙ Core Concepts Applied
+
+- JDBC Connection Handling
+- Connection Pooling
+- Parameterized SQL Queries
+- Resource Management
+- Transaction Handling
+- Exception Hierarchy
+- Configuration Management
+
+---
+
+## ✅ Implementation
+
+- Integrated **JDBC persistence layer**
+- Implemented **Connection Pool**
+- Used **Prepared Statements for security**
+- Created **Repository layer for database operations**
+- Applied **SQL best practices**
+
+🔗 Repository  
+- [feature/UC16-DatabaseIntegration](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC16-DatabaseIntegration)
+
+---
+
+# 🌱 UC17 – Spring Boot Backend
+📅 **12 Mar 2026**  
+🔖 **Branch:** `feature/UC17-SpringIntegeration`
+
+## 🎯 Objective
+Develop a **Spring Boot backend API** for quantity measurement services.
+
+---
+
+## 🧠 Spring Concepts Used
+
+- Spring Framework
+- Spring Boot
+- Spring MVC
+- REST API Development
+- Dependency Injection
+- Spring Service Layer
+- Logging Framework
+- Spring Data JPA
+
+---
+
+## 🏗 Backend Architecture
+
+```
+Client Request
+      │
+      ▼
+REST Controller
+      │
+      ▼
+Service Layer
+      │
+      ▼
+Repository Layer
+      │
+      ▼
+Database
+```
+
+---
+
+## 📦 Core Components
+
+| Component | Role |
+|----------|------|
+| Controller | REST API endpoints |
+| Service | Business logic |
+| Repository | Data persistence |
+| Entity | JPA domain objects |
+
+---
+
+## ✅ Implementation
+
+- Created **Spring Boot application**
+- Developed **RESTful APIs**
+- Implemented **Service and Repository layers**
+- Integrated **Spring Data JPA**
+- Added **structured logging**
+
+🔗 Repository  
+- [feature/UC17-SpringIntegeration](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC17-SpringIntegeration)
+
+---
+
+# 🔐 UC18 – Google Authentication & User Management
+📅 **20 Mar 2026**  
+🔖 **Branch:** `feature/UC18-SpringSecurityWithJWt`
+
+## 🎯 Objective
+Secure the application using **Google OAuth2 authentication and JWT authorization**.
+
+---
+
+## 🔑 Security Technologies
+
+- Spring Security
+- OAuth2 Authentication
+- Google Sign-In
+- JWT (JSON Web Token)
+- Secure Session Handling
+
+---
+
+## 🔐 Authentication Flow
+
+```
+User Login
+   │
+   ▼
+Google OAuth Authentication
+   │
+   ▼
+Backend Validation
+   │
+   ▼
+JWT Token Generated
+   │
+   ▼
+Secure API Access
+```
+
+---
+
+## ✅ Implementation
+
+- Configured **Spring Security**
+- Integrated **Google OAuth2 login**
+- Implemented **JWT token generation**
+- Added **secure API authorization**
+- Created **user role management**
+
+🔗 Repository  
+- [feature/UC18-SpringSecurityWithJWt](https://github.com/vedansh-barve/QuantityMeasurementApp/tree/feature/UC18-SpringSecurityWithJWt)
+
+---
